@@ -1,5 +1,8 @@
+// Grab slider element
 const slider = document.querySelector('.items');
+// Initialize mousedown flag
 let isDown = false;
+// Initialize position variables
 let startX, scrollLeft;
 
 slider.addEventListener('mousedown', (event) => {
@@ -11,7 +14,6 @@ slider.addEventListener('mousedown', (event) => {
   startX = event.pageX - slider.offsetLeft;
   // Set slider origin point
   scrollLeft = slider.scrollLeft;
-  console.log(startX);
 });
 
 slider.addEventListener('mouseleave', () => {
@@ -32,8 +34,8 @@ slider.addEventListener('mousemove', (event) => {
   event.preventDefault();
   // Determine current cursor location
   const x = event.pageX - slider.offsetLeft;
-  // Determine change
-  const walk = x - startX;
-
-  console.log({walk});
+  // Determine change - increase for better UX
+  const walk = (x - startX) * 3;
+  // Move slider
+  slider.scrollLeft = scrollLeft - walk;
 });
