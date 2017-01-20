@@ -9,6 +9,8 @@ slider.addEventListener('mousedown', (event) => {
   slider.classList.add('active');
   // Set start point, adjusting for margin
   startX = event.pageX - slider.offsetLeft;
+  // Set slider origin point
+  scrollLeft = slider.scrollLeft;
   console.log(startX);
 });
 
@@ -23,10 +25,15 @@ slider.addEventListener('mouseup', () => {
   slider.classList.remove('active');
 });
 
-slider.addEventListener('mousemove', () => {
+slider.addEventListener('mousemove', (event) => {
   // Check mousedown flag and exit if false
   if(!isDown) return;
+  // Prevent text selection, etc by browser
+  event.preventDefault();
+  // Determine current cursor location
+  const x = event.pageX - slider.offsetLeft;
+  // Determine change
+  const walk = x - startX;
 
-  console.log('Moving mouse...');
-  console.log(`Start point: ${startX}`);
+  console.log({walk});
 });
